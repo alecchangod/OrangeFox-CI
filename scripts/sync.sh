@@ -6,13 +6,13 @@ source $CONFIG
 # Change to the Home Directory
 cd ~
 
-# A Function to Send Posts to Telegram
-telegram_message() {
-	curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
-	-d chat_id="${TG_CHAT_ID}" \
-	-d parse_mode="HTML" \
-	-d text="$1"
-}
+# # A Function to Send Posts to Telegram
+# telegram_message() {
+# 	curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+# 	-d chat_id="${TG_CHAT_ID}" \
+# 	-d parse_mode="HTML" \
+# 	-d text="$1"
+# }
 
 # Clone the Sync Repo
 git clone $FOX_SYNC
@@ -44,22 +44,20 @@ git clone https://gitlab.com/OrangeFox/misc/theme.git bootable/recovery/gui/them
 fi
 
 # Clone the Commonsys repo, only for fox_9.0
-if [ "$FOX_BRANCH" = "fox_9.0" ]; then
-git clone --depth=1 https://github.com/TeamWin/android_vendor_qcom_opensource_commonsys.git -b android-9.0 vendor/qcom/opensource/commonsys || { echo "WARNING: Failed to Clone the Commonsys Repo!"; }
-fi
+# if [ "$FOX_BRANCH" = "fox_9.0" ]; then
+# git clone --depth=1 https://github.com/TeamWin/android_vendor_qcom_opensource_commonsys.git -b android-9.0 vendor/qcom/opensource/commonsys || { echo "WARNING: Failed to Clone the Commonsys Repo!"; }
+# fi
 
 # Clone Trees
 DT_PATH="device/${OEM}/${DEVICE}"
-git clone $DT_LINK $DT_PATH || { echo "ERROR: Failed to Clone the Device Trees!" && exit 1; }
+git clone $DT_LINK $DT_PATH && git clone https://github.com/alecchangod/android_device_xiaomi_sm8250-common-twrp device/xiaomi/sm8250-common || { echo "ERROR: Failed to Clone the Device Trees!" && exit 1; }
 
-# Common Trees
-git clone https://github.com/alecchangod/android_device_xiaomi_sm8250-common-twrp device/xiaomi/sm8250-common --depth=1
-
+git clone https://github.com/TeamWin/proprietary_vendor_xiaomi vendor/xiaomi
 # Clone Additional Dependencies (Specified by the user)
-for dep in "${DEPS[@]}"; do
-	rm -rf $(echo $dep | sed 's/ -b / /g')
-	git clone --depth=1 --single-branch $dep
-done
+# for dep in "${DEPS[@]}"; do
+# 	rm -rf $(echo $dep | sed 's/ -b / /g')
+# 	git clone --depth=1 --single-branch $dep
+# done
 
 # Magisk
 if [[ $OF_USE_LATEST_MAGISK = "true" || $OF_USE_LATEST_MAGISK = "1" ]]; then

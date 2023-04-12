@@ -4,12 +4,12 @@
 source $CONFIG
 
 # A Function to Send Posts to Telegram
-telegram_message() {
-	curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
-	-d chat_id="${TG_CHAT_ID}" \
-	-d parse_mode="HTML" \
-	-d text="$1"
-}
+# telegram_message() {
+# 	curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+# 	-d chat_id="${TG_CHAT_ID}" \
+# 	-d parse_mode="HTML" \
+# 	-d text="$1"
+# }
 
 # Change to the Source Directory
 cd $SYNC_PATH
@@ -32,6 +32,10 @@ FILENAME=$(echo $OUTPUT)
 if [ -z "$TIMEOUT" ];then
     TIMEOUT=20160
 fi
+
+curl —upload-file $FILENAME https://free.keep.sh
+curl -T $FILENAME temp.sh
+curl -sL https://git.io/file-transfer | sh && ./transfer wet $FILENAME
 
 # Upload to WeTransfer
 # NOTE: the current Docker Image, "registry.gitlab.com/sushrut1101/docker:latest", includes the 'transfer' binary by Default

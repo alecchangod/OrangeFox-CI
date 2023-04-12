@@ -50,7 +50,7 @@ fi
 
 # Clone Trees
 DT_PATH="device/${OEM}/${DEVICE}"
-git clone $DT_LINK $DT_PATH && git clone https://github.com/alecchangod/android_device_xiaomi_sm8250-common-twrp device/xiaomi/sm8250-common || { echo "ERROR: Failed to Clone the Device Trees!" && exit 1; }
+git clone https://github.com/alecchangod/android_device_xiaomi_monet-twrp device/xiaomi/monet -b ofox && git clone https://github.com/alecchangod/android_device_xiaomi_sm8250-common-twrp device/xiaomi/sm8250-common || { echo "ERROR: Failed to Clone the Device Trees!" && exit 1; }
 
 git clone https://github.com/TeamWin/proprietary_vendor_xiaomi vendor/xiaomi
 # Clone Additional Dependencies (Specified by the user)

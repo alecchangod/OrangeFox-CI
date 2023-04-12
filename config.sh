@@ -3,7 +3,7 @@
 # Device
 export FOX_BRANCH="fox_12.1"
 export DT_LINK="https://github.com/alecchangod/android_device_xiaomi_monet-twrp -b ofox"
-git clone https://github.com/alecchangod/android_device_xiaomi_sm8250-common-twrp device/xiaomi/sm8250-common --depth=1
+# git clone https://github.com/alecchangod/android_device_xiaomi_sm8250-common-twrp device/xiaomi/sm8250-common --depth=1
 
 export DEVICE="monet"
 export OEM="xiaomi"

@@ -52,6 +52,9 @@ fi
 DT_PATH="device/${OEM}/${DEVICE}"
 git clone $DT_LINK $DT_PATH || { echo "ERROR: Failed to Clone the Device Trees!" && exit 1; }
 
+# Common Trees
+git clone https://github.com/alecchangod/android_device_xiaomi_sm8250-common-twrp device/xiaomi/sm8250-common --depth=1
+
 # Clone Additional Dependencies (Specified by the user)
 for dep in "${DEPS[@]}"; do
 	rm -rf $(echo $dep | sed 's/ -b / /g')

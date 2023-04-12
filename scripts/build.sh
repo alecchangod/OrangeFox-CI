@@ -3,13 +3,13 @@
 # Source Configs
 source $CONFIG
 
-# A Function to Send Posts to Telegram
-telegram_message() {
-	curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
-	-d chat_id="${TG_CHAT_ID}" \
-	-d parse_mode="HTML" \
-	-d text="$1"
-}
+# # A Function to Send Posts to Telegram
+# telegram_message() {
+# 	curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+# 	-d chat_id="${TG_CHAT_ID}" \
+# 	-d parse_mode="HTML" \
+# 	-d text="$1"
+# }
 
 # Change to the Source Directry
 cd $SYNC_PATH
@@ -21,7 +21,7 @@ fi
 
 # Set-up ccache
 if [ -z "$CCACHE_SIZE" ]; then
-    ccache -M 10G
+    ccache -M 50G
 else
     ccache -M ${CCACHE_SIZE}
 fi
@@ -32,26 +32,35 @@ if [ "$FOX_BRANCH" = "fox_11.0" ]; then
     touch frameworks/base/core/xsd/vts/Android.mk 2>/dev/null || echo
 fi
 
-# Send the Telegram Message
+# # Send the Telegram Message
 
-echo -e \
-"
-🦊 OrangeFox Recovery CI
+# echo -e \
+# "
+# 🦊 OrangeFox Recovery CI
 
-✔️ The Build has been Triggered!
+# ✔️ The Build has been Triggered!
 
-📱 Device: "${DEVICE}"
-🖥 Build System: "${FOX_BRANCH}"
-🌲 Logs: <a href=\"https://cirrus-ci.com/build/${CIRRUS_BUILD_ID}\">Here</a>
-" > tg.html
+# 📱 Device: "${DEVICE}"
+# 🖥 Build System: "${FOX_BRANCH}"
+# 🌲 Logs: <a href=\"https://cirrus-ci.com/build/${CIRRUS_BUILD_ID}\">Here</a>
+# " > tg.html
 
-TG_TEXT=$(< tg.html)
+# TG_TEXT=$(< tg.html)
 
-telegram_message "${TG_TEXT}"
+# telegram_message "${TG_TEXT}"
 echo " "
+echo "common tree"
+ls
+ls device
+ls device/*
+ls device/xiaomi/*
+rm -rf device/xiaomi/sm8250-common
+git clone https://github.com/alecchangod/android_device_xiaomi_sm8250-common-twrp device/xiaomi/sm8250-common
+ls device/xiaomi/sm8250-common
 
 # Prepare the Build Environment
 source build/envsetup.sh
+ls device/xiaomi/sm8250-common
 
 # Run the Extra Command
 $EXTRA_CMD
@@ -84,12 +93,30 @@ if [ $BRANCH_INT -le 6 ]; then
     export OF_LEGACY_SHAR512=1 # Fix Compilation on Legacy Build Systems
 fi
 
+echo "common tree"
+ls
+ls device
+ls device/*
+ls device/xiaomi/*
+rm -rf device/xiaomi/sm8250-common
+git clone https://github.com/alecchangod/android_device_xiaomi_sm8250-common-twrp device/xiaomi/sm8250-common
+ls device/xiaomi/sm8250-common
+
 # lunch the target
 if [ "$BRANCH_INT" -ge 11 ]; then
     lunch twrp_${DEVICE}-eng || { echo "ERROR: Failed to lunch the target!" && exit 1; }
 else
     lunch omni_${DEVICE}-eng || { echo "ERROR: Failed to lunch the target!" && exit 1; }
 fi
+
+echo "common tree"
+ls
+ls device
+ls device/*
+ls device/xiaomi/*
+rm -rf device/xiaomi/sm8250-common
+git clone https://github.com/alecchangod/android_device_xiaomi_sm8250-common-twrp device/xiaomi/sm8250-common
+ls device/xiaomi/sm8250-common
 
 # Build the Code
 if [ -z "$J_VAL" ]; then

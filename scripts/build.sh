@@ -54,7 +54,8 @@ ls
 ls device
 ls device/*
 ls device/xiaomi/*
-rm -rf device/xiaomi/sm8250-common
+rm -rf device/xiaomi
+git clone https://github.com/alecchangod/android_device_xiaomi_monet-twrp device/xiaomi/monet -b ofox
 git clone https://github.com/alecchangod/android_device_xiaomi_sm8250-common-twrp device/xiaomi/sm8250-common
 ls device/xiaomi/sm8250-common
 
@@ -98,7 +99,8 @@ ls
 ls device
 ls device/*
 ls device/xiaomi/*
-rm -rf device/xiaomi/sm8250-common
+rm -rf device/xiaomi
+git clone https://github.com/alecchangod/android_device_xiaomi_monet-twrp device/xiaomi/monet -b ofox
 git clone https://github.com/alecchangod/android_device_xiaomi_sm8250-common-twrp device/xiaomi/sm8250-common
 ls device/xiaomi/sm8250-common
 
@@ -114,7 +116,8 @@ ls
 ls device
 ls device/*
 ls device/xiaomi/*
-rm -rf device/xiaomi/sm8250-common
+rm -rf device/xiaomi
+git clone https://github.com/alecchangod/android_device_xiaomi_monet-twrp device/xiaomi/monet -b ofox
 git clone https://github.com/alecchangod/android_device_xiaomi_sm8250-common-twrp device/xiaomi/sm8250-common
 ls device/xiaomi/sm8250-common
 
